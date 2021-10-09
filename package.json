@@ -1,0 +1,8 @@
+{
+  "name": "my-node-app",
+  "version": "1.0.0",
+  "dependencies": {
+    "@automationcloud/client": "^1.8.3",
+    "dotenv": "^10.0.0"
+  }
+}
