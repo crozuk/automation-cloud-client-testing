@@ -22,7 +22,8 @@ const client = new Client({
     //Input search term
     var searchInput = "apples";
     await job.submitInput('search_term', searchInput);
-    var selectedItem = {'title': "Apple - Wikipedia"};
+    var selectedTitle = "Apple - Wikipedia"
+    var selectedItem = {'title': selectedTitle};
     console.log(selectedItem);
     
     var selected = await job.waitForOutputs('SearchResults');
