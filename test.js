@@ -1,3 +1,4 @@
+//Basic async functions
 async function getData() {
   return Promise.resolve('this is');
 }
