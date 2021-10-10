@@ -6,6 +6,7 @@ const app_secret = process.env.secret;
 var express = require('express');
 var app = express();
 const port = 3001;
+app.use(express.urlencoded());
 
 //Automation Cloud client
 const { Client } = require('@automationcloud/client');
@@ -71,7 +72,7 @@ async function selectItem(item) {
 
 //Search endpoint
 app.post('/search', function (req, res) {
-    var queryInput = req.query.search;
+    var queryInput = req.body.search;
     console.log("/search endpoint");
     (async function(){
         var submit = await createSubmit(queryInput);
@@ -82,12 +83,12 @@ app.post('/search', function (req, res) {
 
 //Selected endpoint
 app.post('/selected', function (req, res) {
-    var selectedResult = req.query.selected;
+    var selectedResult = req.body.selected;
     console.log("/selected endpoint");
     //res.send("Selected - " + selectedResult);
     (async function(){
         await selectItem(selectedResult);
-        res.send("Selected - " + selectedResult);
+        res.send("Job complete for " + selectedResult);
     })();
 })
 
