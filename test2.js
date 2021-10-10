@@ -85,7 +85,6 @@ app.post('/search', function (req, res) {
 app.post('/selected', function (req, res) {
     var selectedResult = req.body.selected;
     console.log("/selected endpoint");
-    //res.send("Selected - " + selectedResult);
     (async function(){
         await selectItem(selectedResult);
         res.send("Job complete for " + selectedResult);
