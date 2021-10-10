@@ -63,7 +63,7 @@ async function createSubmit(term) {
     return job, output;
 }
 
-//Input select item to job
+//Input selected item to job
 async function selectItem(item) {
     await submitSelected(item, job);
     return job;
