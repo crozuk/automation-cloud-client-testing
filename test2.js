@@ -35,7 +35,7 @@ async function submitInput(data, job) {
     return Promise.resolve(job);
 }
 
-//Submit input
+//Submit selected result
 async function submitSelected(data, job) {
     var selectedTitle = data;
     var selectedItem = {'title': selectedTitle};
