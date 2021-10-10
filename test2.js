@@ -71,19 +71,24 @@ async function selectItem(item) {
 
 //Search endpoint
 app.post('/search', function (req, res) {
+    var queryInput = req.query.search;
     console.log("/search endpoint");
     (async function(){
-        var submit = await createSubmit("apples");
-        console.log(submit);
+        var submit = await createSubmit(queryInput);
+        //console.log(submit);
         res.send(submit);
     })();
 })
 
 //Selected endpoint
 app.post('/selected', function (req, res) {
+    var selectedResult = req.query.selected;
     console.log("/selected endpoint");
-    selectItem("Apple - Wikipedia");
-    res.send("Selected...");
+    //res.send("Selected - " + selectedResult);
+    (async function(){
+        await selectItem(selectedResult);
+        res.send("Selected - " + selectedResult);
+    })();
 })
 
 //Start server
