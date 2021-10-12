@@ -1,6 +1,9 @@
 {
   "name": "automation-cloud-client-testing",
   "version": "1.0.0",
+  "scripts": {
+		"test": "node test.js"
+	},
   "dependencies": {
     "@automationcloud/client": "^1.8.3",
     "dotenv": "^10.0.0",
