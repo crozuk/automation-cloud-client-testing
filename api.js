@@ -56,6 +56,7 @@ async function submitSelected(data, job) {
 async function createSubmit(term) {
     job = await createJob();
     await submitInput(term, job);
+    //Log jobiD
     jobId = job._jobId;
     console.log(jobId);
     //Output
