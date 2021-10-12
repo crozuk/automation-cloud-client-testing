@@ -29,7 +29,7 @@ async function createJob() {
 
 //Submit input
 async function submitInput(data, job) {
-    //Log jobiD
+    //Log jobId
     jobId = job._jobId;
     console.log(jobId);
     var searchInput = data;
@@ -39,11 +39,11 @@ async function submitInput(data, job) {
 }
 
 //Submit selected result
-async function submitSelected(data, job) {
+async function submitSelected(data, job, jobId) {
     var selectedTitle = data;
     var selectedItem = {'title': selectedTitle};
     console.log(selectedItem);
-    
+    job = await client.getJob(jobId);
     //Wait for output
     await job.waitForOutputs('SearchResults');
     //Submit input
@@ -51,7 +51,6 @@ async function submitSelected(data, job) {
     
     //Wait for completion
     await job.waitForCompletion();
-    
     return Promise.resolve(job);
 }
 
@@ -68,7 +67,8 @@ async function createSubmit(term) {
 
 //Input selected item to job
 async function selectItem(item) {
-    await submitSelected(item, job);
+    var jobId = job._jobId;
+    await submitSelected(item, job, jobId);
     return job;
 }
 
