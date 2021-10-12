@@ -11,6 +11,7 @@ app.use(express.urlencoded());
 //Automation Cloud client
 const { Client } = require('@automationcloud/client');
 
+//Automation Client Functions
 // Create client instance
 const client = new Client({
     serviceId: "20ea0e52-1c0d-41ba-9ed2-4b50ca847f31",
@@ -70,7 +71,7 @@ async function selectItem(item, jobId) {
     return job;
 }
 
-
+//API Endpoints
 //Search endpoint
 app.post('/search', async function (req, res) {
     var queryInput = req.body.search;
@@ -83,10 +84,6 @@ app.post('/search', async function (req, res) {
           }
     );
 })
-
-//Return the job object which gets passed to the next endpoint (PUT) (URL parameters) (RESTful)
-//Add async to initial function
-//Learn TypeScript
 
 //Selected endpoint
 app.put('/selected', async function (req, res) {
