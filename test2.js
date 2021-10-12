@@ -81,6 +81,10 @@ app.post('/search', function (req, res) {
     })();
 })
 
+//Return the job object which gets passed to the next endpoint (PUT) (URL parameters) (RESTful)
+//Add async to initial function
+//Learn TypeScript
+
 //Selected endpoint
 app.post('/selected', function (req, res) {
     var selectedResult = req.body.selected;
