@@ -74,14 +74,12 @@ async function selectItem(item) {
 
 
 //Search endpoint
-app.post('/search', function (req, res) {
+app.post('/search', async function (req, res) {
     var queryInput = req.body.search;
     console.log("/search endpoint");
-    (async function(){
-        var submit = await createSubmit(queryInput);
-        //console.log(submit);
-        res.send(submit);
-    })();
+    var submit = await createSubmit(queryInput);
+    //console.log(submit);
+    res.send(submit);
 })
 
 //Return the job object which gets passed to the next endpoint (PUT) (URL parameters) (RESTful)
@@ -89,13 +87,11 @@ app.post('/search', function (req, res) {
 //Learn TypeScript
 
 //Selected endpoint
-app.post('/selected', function (req, res) {
+app.post('/selected', async function (req, res) {
     var selectedResult = req.body.selected;
     console.log("/selected endpoint");
-    (async function(){
-        await selectItem(selectedResult);
-        res.send("Job complete for " + selectedResult);
-    })();
+    await selectItem(selectedResult);
+    res.send("Job complete for " + selectedResult);
 })
 
 //Start server
