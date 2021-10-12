@@ -31,7 +31,6 @@ async function createJob() {
 async function submitInput(data, job) {
     //Log jobId
     jobId = job._jobId;
-    console.log(jobId);
     var searchInput = data;
     console.log(searchInput);
     await job.submitInput('search_term', searchInput);
@@ -78,8 +77,12 @@ app.post('/search', async function (req, res) {
     var queryInput = req.body.search;
     console.log("/search endpoint");
     var submit = await createSubmit(queryInput);
-    //console.log(submit);
-    res.send(submit);
+    res.send(
+        {
+            "jobId": jobId,
+            "output": submit
+          }
+    );
 })
 
 //Return the job object which gets passed to the next endpoint (PUT) (URL parameters) (RESTful)
