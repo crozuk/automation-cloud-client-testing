@@ -65,8 +65,7 @@ async function createSubmit(term) {
 }
 
 //Input selected item to job
-async function selectItem(item) {
-    var jobId = job._jobId;
+async function selectItem(item, jobId) {
     await submitSelected(item, job, jobId);
     return job;
 }
@@ -90,11 +89,12 @@ app.post('/search', async function (req, res) {
 //Learn TypeScript
 
 //Selected endpoint
-app.post('/selected', async function (req, res) {
+app.put('/selected', async function (req, res) {
     var selectedResult = req.body.selected;
+    var jobId = req.query.jobId;
     console.log("/selected endpoint");
-    await selectItem(selectedResult);
-    res.send("Job complete for " + selectedResult);
+    await selectItem(selectedResult, jobId);
+    res.send("Job complete for " + selectedResult + " (JobId: " + jobId + ")");
 })
 
 //Start server
