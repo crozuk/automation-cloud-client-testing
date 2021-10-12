@@ -29,10 +29,13 @@ async function createJob() {
 
 //Submit input
 async function submitInput(data, job) {
+    //Log jobiD
+    jobId = job._jobId;
+    console.log(jobId);
     var searchInput = data;
     console.log(searchInput);
     await job.submitInput('search_term', searchInput);
-    return Promise.resolve(job);
+    return Promise.resolve(job, jobId);
 }
 
 //Submit selected result
@@ -56,9 +59,6 @@ async function submitSelected(data, job) {
 async function createSubmit(term) {
     job = await createJob();
     await submitInput(term, job);
-    //Log jobiD
-    jobId = job._jobId;
-    console.log(jobId);
     //Output
     await job.waitForOutputs('SearchResults');
     var output = await job.getOutput('SearchResults');
