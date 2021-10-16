@@ -1,12 +1,14 @@
 // Enviroment variables
 require('dotenv').config();
-const app_secret = process.env.secret;
+const appSecret = process.env.secret;
 
 //Express server
 var express = require('express');
 var app = express();
 const port = 3001;
 app.use(express.urlencoded());
+
+var axios = require('axios');
 
 //Automation Cloud client
 const { Client } = require('@automationcloud/client');
@@ -16,7 +18,7 @@ const { Client } = require('@automationcloud/client');
 const client = new Client({
     serviceId: "20ea0e52-1c0d-41ba-9ed2-4b50ca847f31",
     category: "test",
-    auth: app_secret
+    auth: appSecret
 });
 
 //Create new job
@@ -48,7 +50,8 @@ async function submitSelected(data, job, jobId) {
     await job.waitForOutputs('SearchResults');
     //Submit input
     job.submitInput('selected_site', selectedItem);
-    
+    var response = await axios.get('https://api.ipify.org', {});
+    console.log(response.data);
     //Wait for completion
     await job.waitForCompletion();
     return Promise.resolve(job);
