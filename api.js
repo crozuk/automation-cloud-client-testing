@@ -50,11 +50,8 @@ async function submitSelected(data, job, jobId) {
     await job.waitForOutputs('SearchResults');
     //Submit input
     job.submitInput('selected_site', selectedItem);
-    var response = await axios.get('https://api.ipify.org', {});
-    console.log(response.data);
     //Wait for completion
     await job.waitForCompletion();
-    return Promise.resolve(job);
 }
 
 //Create job with input
@@ -96,6 +93,20 @@ app.put('/selected', async function (req, res) {
     await selectItem(selectedResult, jobId);
     res.send("Job complete for " + selectedResult + " (JobId: " + jobId + ")");
 })
+
+// app.get('/screenshot', async function (req, res) {
+//     const username = appSecret;
+//     const password = '';
+//     const data = null;
+//     const token = Buffer.from(`${username}:${password}`, 'utf8').toString('base64');
+//     var url = "https://api.automationcloud.net/jobs/" + jobId + "/screenshots";
+//     console.log(url);
+//     await axios.post(url, data, {
+//         headers: {
+//        'Authorization': `Basic ${token}`
+//       },
+//     })
+// })
 
 //Start server
 app.listen(port, () => {
