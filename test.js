@@ -6,7 +6,8 @@ const jobId = 'ccf7d6a9-1bb5-4b50-be27-97a6bae09a61';
 // Asios
 const axios = require('axios');
 
-async function getScreenshots (jobId) {
+// Get screenshot function
+async function getScreenshot (jobId, appSecret) {
     const username = appSecret;
     const password = null;
     //const data = null;
@@ -19,7 +20,7 @@ async function getScreenshots (jobId) {
             'Authorization': `Basic ${token}`
         },
     })
-    var body = await response.data;
+    const body = await response.data;
     //console.log(body);
     const latestScreenshot = body.data.reverse()[0];
     //console.log(latestScreenshot);
@@ -34,4 +35,4 @@ async function getScreenshots (jobId) {
     console.log(imageBase64);
     return imageBase64;
 }
-getScreenshots(jobId);
+getScreenshot(jobId, appSecret);
