@@ -8,6 +8,7 @@ var app = express();
 const port = 3001;
 app.use(express.urlencoded());
 
+// Axios require
 var axios = require('axios');
 
 //Automation Cloud client
@@ -21,7 +22,7 @@ const client = new Client({
     auth: appSecret
 });
 
-//Create new job
+// Create new job
 async function createJob() {
     //Create job
     const job = await client.createJob();
@@ -30,7 +31,7 @@ async function createJob() {
     return Promise.resolve(job);
 }
 
-//Submit input
+// Submit input
 async function submitInput(data, job) {
     //Log jobId
     jobId = job._jobId;
@@ -40,7 +41,7 @@ async function submitInput(data, job) {
     return Promise.resolve(job, jobId);
 }
 
-//Submit selected result
+// Submit selected result
 async function submitSelected(data, job, jobId) {
     var selectedTitle = data;
     var selectedItem = {'title': selectedTitle};
@@ -54,7 +55,7 @@ async function submitSelected(data, job, jobId) {
     await job.waitForCompletion();
 }
 
-//Create job with input
+// Create job with input
 async function createSubmit(term) {
     job = await createJob();
     await submitInput(term, job);
@@ -65,14 +66,14 @@ async function createSubmit(term) {
     return job, output;
 }
 
-//Input selected item to job
+// Input selected item to job
 async function selectItem(item, jobId) {
     await submitSelected(item, job, jobId);
     return job;
 }
 
-//API Endpoints
-//Search endpoint
+// API Endpoints
+// Search endpoint
 app.post('/search', async function (req, res) {
     var queryInput = req.body.search;
     console.log("/search endpoint");
@@ -85,7 +86,7 @@ app.post('/search', async function (req, res) {
     );
 })
 
-//Selected endpoint
+// Selected endpoint
 app.put('/selected', async function (req, res) {
     var selectedResult = req.body.selected;
     var jobId = req.query.jobId;
@@ -108,7 +109,7 @@ app.put('/selected', async function (req, res) {
 //     })
 // })
 
-//Start server
+// Start server
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`)
 })
