@@ -72,6 +72,36 @@ async function selectItem(item, jobId) {
     return job;
 }
 
+// Get Screenshot
+async function getScreenshot (jobId, appSecret) {
+    const username = appSecret;
+    const password = null;
+    //const data = null;
+    const token = Buffer.from(`${username}:${password}`, 'utf8').toString('base64');
+    var url = "https://api.automationcloud.net/jobs/" + jobId + "/screenshots";
+    //console.log(token);
+    //console.log(url);
+    var response = await axios.get(url, {
+        headers: {
+            'Authorization': `Basic ${token}`
+        },
+    })
+    const body = await response.data;
+    //console.log(body);
+    const latestScreenshot = body.data.reverse()[0];
+    //console.log(latestScreenshot);
+    var url = "https://api.automationcloud.net" + latestScreenshot.url
+    var response = await axios.get(url, {
+        responseType: 'arraybuffer',
+        headers: {
+            'Authorization': `Basic ${token}`
+        },
+    });
+    const imageBase64 = Buffer.from(response.data, 'binary').toString('base64');
+    console.log(imageBase64);
+    return imageBase64;
+}
+
 // API Endpoints
 // Search endpoint
 app.post('/search', async function (req, res) {
@@ -95,19 +125,11 @@ app.put('/selected', async function (req, res) {
     res.send("Job complete for " + selectedResult + " (JobId: " + jobId + ")");
 })
 
-// app.get('/screenshot', async function (req, res) {
-//     const username = appSecret;
-//     const password = '';
-//     const data = null;
-//     const token = Buffer.from(`${username}:${password}`, 'utf8').toString('base64');
-//     var url = "https://api.automationcloud.net/jobs/" + jobId + "/screenshots";
-//     console.log(url);
-//     await axios.post(url, data, {
-//         headers: {
-//        'Authorization': `Basic ${token}`
-//       },
-//     })
-// })
+app.get('/screenshot', async function (req, res) {
+    var jobId = req.query.jobId;
+    var screenshotBase64 = await getScreenshot(jobId, appSecret);
+    res.send(screenshotBase64);
+})
 
 // Start server
 app.listen(port, () => {
