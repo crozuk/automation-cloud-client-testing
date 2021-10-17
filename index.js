@@ -1,8 +1,8 @@
 // Enviroment variables
 require('dotenv').config();
-const app_secret = process.env.secret;
+const appSecret = process.env.secret;
 //Log app secret key
-console.log(app_secret);
+console.log(appSecret);
 //Automation Cloud client
 const { Client } = require('@automationcloud/client');
 
@@ -10,7 +10,7 @@ const { Client } = require('@automationcloud/client');
 const client = new Client({
     serviceId: "20ea0e52-1c0d-41ba-9ed2-4b50ca847f31",
     category: "test",
-    auth: app_secret
+    auth: appSecret
 });
 
 // Create and follow job
