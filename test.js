@@ -32,7 +32,6 @@ async function getScreenshot (jobId, appSecret) {
         },
     });
     const imageBase64 = Buffer.from(response.data, 'binary').toString('base64');
-    console.log(imageBase64);
     return imageBase64;
 }
 getScreenshot(jobId, appSecret);
