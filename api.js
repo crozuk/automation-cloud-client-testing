@@ -122,7 +122,13 @@ app.put('/selected', async function (req, res) {
     var jobId = req.query.jobId;
     console.log("/selected endpoint");
     await selectItem(selectedResult, jobId);
-    res.send("Job complete for " + selectedResult + " (JobId: " + jobId + ")");
+    res.send(
+        {
+            "status": "Job Complete",
+            "selected Result": selectedResult,
+            "jobId" : jobId
+          }
+    );
 })
 
 app.get('/screenshot', async function (req, res) {
