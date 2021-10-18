@@ -122,19 +122,15 @@ app.put('/selected', async function (req, res) {
     var jobId = req.query.jobId;
     console.log("/selected endpoint");
     await selectItem(selectedResult, jobId);
+    var screenshotBase64 = await getScreenshot(jobId, appSecret);
     res.send(
         {
             "status": "Job Complete",
             "selected Result": selectedResult,
-            "jobId" : jobId
+            "jobId" : jobId,
+            "screenshot" : screenshotBase64
           }
     );
-})
-
-app.get('/screenshot', async function (req, res) {
-    var jobId = req.query.jobId;
-    var screenshotBase64 = await getScreenshot(jobId, appSecret);
-    res.send(screenshotBase64);
 })
 
 // Start server
